@@ -1,0 +1,314 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Market Data &#8212; FinX Docs 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Analytics" href="analytics.html" />
+    <link rel="prev" title="FinX Capital Markets Python SDK" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="market-data">
+<h1>Market Data<a class="headerlink" href="#market-data" title="Permalink to this heading">¶</a></h1>
+<p>To retrieve Market Data on a financial instrument, security, or smart contract, you may use the FinXClient or the FinXRest client, depending on the function called.</p>
+<p>The FinXRest client is instantiated as follows:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Instantiate FinXRest</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">finx</span>
+<span class="kn">from</span> <span class="nn">finx.finx_rest</span> <span class="kn">import</span> <span class="n">FinXRest</span>
+<span class="n">finx_api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;FINX_API_KEY&#39;</span><span class="p">]</span>
+<span class="k">if</span> <span class="n">finx_api_key</span><span class="p">:</span>
+    <span class="n">finx_rest_client</span> <span class="o">=</span> <span class="n">FinXRest</span><span class="p">(</span><span class="n">finx_api_key</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;set your FINX_API_KEY environment variable like os.environ[FINX_API_KEY] = my_api_key&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The FinXClient is instantiated as follows:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Instantiate FinXClient</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="kn">import</span> <span class="nn">os</span>
+ <span class="kn">import</span> <span class="nn">finx</span>
+ <span class="kn">from</span> <span class="nn">finx.client</span> <span class="kn">import</span> <span class="n">FinXClient</span>
+ <span class="n">finx_api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">FINX_API_KEY</span><span class="p">]</span>
+ <span class="k">if</span> <span class="n">finx_api_key</span><span class="p">:</span>
+     <span class="n">finx_client</span> <span class="o">=</span> <span class="n">FinXClient</span><span class="p">(</span><span class="s2">&quot;socket&quot;</span><span class="p">,</span><span class="n">ssl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+ <span class="k">else</span><span class="p">:</span>
+     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;set your FINX_API_KEY environment variable like os.environ[FINX_API_KEY] = my_api_key&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The FinxClient and FinXRest clients expose several functions:</p>
+<hr class="docutils" />
+<dl class="py function">
+<dt class="sig sig-object py" id="FinXRest.get_reference_data">
+<span class="sig-prename descclassname"><span class="pre">FinXRest.</span></span><span class="sig-name descname"><span class="pre">get_reference_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">security_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unix_time</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#FinXRest.get_reference_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>For <em>DIGITAL ASSETS AND DIGITAL DERIVATIVES</em>:  Return information about a security based on its security_id. If unix_time is included then information about the
+security will be returned for the corresponding time entered. If the security information is not available for the
+time entered then either Current Information or No Information will be returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>security_id</strong> (<em>str</em>) – Required “security identifier” of the item searched. This can be any industry-standard identifier or a custom identifier</p></li>
+<li><p><strong>unix_time</strong> (<em>str</em>) – Optional “unix time” as a string(integer) of seconds since 01 January 1970</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Depending on the security, information such as name, country, currency, security type, maturity date, etc.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt class="sig sig-object py" id="FinXClient.get_security_reference_data">
+<span class="sig-prename descclassname"><span class="pre">FinXClient.</span></span><span class="sig-name descname"><span class="pre">get_security_reference_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">security_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_of_date</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#FinXClient.get_security_reference_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>For <em>BONDS, STRUCTURED SECURITIES, and other ‘FIXED INCOME’ PRODUCTS</em>:Return reference data, terms and conditions on a security based on its security_id. If an “as_of_date” is entered then the method returns data as it was known on that date. This can be used for retrieving historical data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>secruity_id</strong> – Required Any security_identifier of any number of id schemes</p></li>
+<li><p><strong>as_of_date</strong> (<em>str</em>) – Optional A date formatted as “YYYY-mm-dd” (like “2022-07-01”) to use as a historical look-up of reference data.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of key:value pairs for the security. Keys will vary based on security_type, but typical keys are [security_name, asset_class, security_type, data_source, country, currency, current_factor, maturity_date, issue_date, current_coupon, etc.]</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt class="sig sig-object py" id="FinXRest.list_deribit_contracts">
+<span class="sig-prename descclassname"><span class="pre">FinXRest.</span></span><span class="sig-name descname"><span class="pre">list_deribit_contracts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#FinXRest.list_deribit_contracts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the list of contract identifiers available on the Deribit exchange. These items may be used as security_id
+in order to retrieve additional information from other methods in this section.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>null</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of security_id of Deribit contracts currently being traded.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt class="sig sig-object py" id="FinXRest.list_pairs">
+<span class="sig-prename descclassname"><span class="pre">FinXRest.</span></span><span class="sig-name descname"><span class="pre">list_pairs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#FinXRest.list_pairs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the list of pairs (swaps) tracked on the FinX Platform. You can retrieve tick-level data for any pair.
+These pairs may be used as “pair” in order to retrieve additional information from other methods in this section.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>null</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of pairs being tracked.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt class="sig sig-object py" id="FinXRest.pair_quote">
+<span class="sig-prename descclassname"><span class="pre">FinXRest.</span></span><span class="sig-name descname"><span class="pre">pair_quote</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pair</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unix_time_target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_target_width</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#FinXRest.pair_quote" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a single exchange trade and price data quote for a given pair (or “swap”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pair</strong> (<em>str</em>) – Required “pair” of the swap being quoted. This can be any pair of security_id separated by a ‘:’ (colon), such as BTC:EUR or ETH:USDT.</p></li>
+<li><p><strong>unix_time_target</strong> (<em>str</em>) – Optional “unix time” (in seconds) used to search for historical data. For example, “2022-07-01 00:00:00 GMT” should be entered as “1656658800”.</p></li>
+<li><p><strong>time_target_width</strong> (<em>str</em>) – Optional “width in seconds” of the time to search <em>around</em> the unix_time_target. For example, if you entered unix_time_target=”1656658800” and time_target_width=”20” then the pair quote will be any quote found between “2022-07-01 11:59:50 GMT” and “2022-07-02 00:00:10 GMT”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of information about the pair_quote such as “price” and “UTCDate”</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt class="sig sig-object py" id="FinXRest.pair_quote_series">
+<span class="sig-prename descclassname"><span class="pre">FinXRest.</span></span><span class="sig-name descname"><span class="pre">pair_quote_series</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pair</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unix_time_start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unix_time_end</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#FinXRest.pair_quote_series" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a time series of exchange trade and price data quotes for a given pair (or “swap”). The data returned will be between the two dates specified (unix_time_start and unix_time_end) with quotes separated in time by the step_length in seconds. The maximum number of records returned from this method is 1,000.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pair</strong> (<em>str</em>) – Required “pair” of the swap being quoted. This can be any pair of security_id separated by a ‘:’ (colon), such as BTC:EUR or ETH:USDT.</p></li>
+<li><p><strong>unix_time_start</strong> (<em>str</em>) – Required “unix time start” (in seconds) used to start searching for historical data. For example, “2022-07-01 00:00:00 GMT” should be entered as “1656658800”.</p></li>
+<li><p><strong>step_length</strong> (<em>str</em>) – Optional “step length” (in seconds) of the amount of time that should separate each quote. For example, “60” will return historical quotes that are 60 seconds apart.</p></li>
+<li><p><strong>unix_time_end</strong> – Optional “unix time end” (in seconds) used to stop searching for historical data.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of dictionaries of information about historical pair_quotes such as “price” and “UTCDate”</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt class="sig sig-object py" id="FinXRest.get_options_timeslice">
+<span class="sig-prename descclassname"><span class="pre">FinXRest.</span></span><span class="sig-name descname"><span class="pre">get_options_timeslice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeslice_datestamp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeslice_width_seconds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">underlying_symbol</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#FinXRest.get_options_timeslice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a timeslice of options observations for a given underlying_symbol. The returned set will include all futures, options and perpetuals for a given underlying security for the specific date and time input, and including the range of time around that target time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timeslice_datestamp</strong> (<em>str</em>) – Required “unix time” (in seconds) used as the center point for the timeslice of observations. For example, “2022-07-01 00:00:00 GMT” should be entered as “1656658800”.</p></li>
+<li><p><strong>timeslice_width_seconds</strong> (<em>str</em>) – Required “time width” (in seconds) of the amount of time around the center point that should be searched. For example, “60” will return historical quotes that are 60 seconds apart.</p></li>
+<li><p><strong>underlying_symbol</strong> (<em>str</em>) – Required “underlying symbol” of the contracts to be included in the timeslice. For example, “BTC” or “ETH”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of dictionaries of information about observed option contracts in the timeslice, with information such as “expiry”, “strike price”, “option type”, “gamma”, “delta”, “rho”, etc.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt class="sig sig-object py" id="FinXRest.get_options_timeslice_series">
+<span class="sig-prename descclassname"><span class="pre">FinXRest.</span></span><span class="sig-name descname"><span class="pre">get_options_timeslice_series</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unix_time_start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unix_time_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeslice_width_seconds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">underlying_symbol</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#FinXRest.get_options_timeslice_series" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a time series of timeslices of options observations for a given underlying_symbol, evenly distributed betwen a start and an end date. A maximum of 1,000 time slices will be returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>unix_time_start</strong> (<em>str</em>) – Required “unix time” (in seconds) used as the starting time for the series of timeslices of observations. For example, “2022-07-01 00:00:00 GMT” should be entered as “1656658800”.</p></li>
+<li><p><strong>unix_time_end</strong> (<em>str</em>) – Required “unix time” (in seconds) used as the ending point for the series of timeslices of observations.</p></li>
+<li><p><strong>timeslice_width_seconds</strong> (<em>str</em>) – Required “time width” (in seconds) of the amount of time around the center point that should be searched. For example, “60” will return historical quotes that are 60 seconds apart.</p></li>
+<li><p><strong>underlying_symbol</strong> (<em>str</em>) – Required “underlying symbol” of the contracts to be included in the timeslice. For example, “BTC” or “ETH”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of dictionaries of information about observed option contracts in the timeslice, with information such as “expiry”, “strike price”, “option type”, “gamma”, “delta”, “rho”, etc.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>coverage_check</p>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">FinX Docs</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Market Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analytics.html">Analytics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_notes.html">Developer Notes - FinX SDK</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">FinX Capital Markets Python SDK</a></li>
+      <li>Next: <a href="analytics.html" title="next chapter">Analytics</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, FinX Capital Markets LLC.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/market_data.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
