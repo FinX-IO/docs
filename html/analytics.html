@@ -1,0 +1,344 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Analytics &#8212; FinX Docs 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Developer Notes - FinX SDK" href="developer_notes.html" />
+    <link rel="prev" title="Market Data" href="market_data.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="analytics">
+<h1>Analytics<a class="headerlink" href="#analytics" title="Permalink to this heading">¶</a></h1>
+<p>To calculate analytics on a financial instrument, security, or smart contract, you may use the FinXClient client or the FinXRest client, depending on the function called.</p>
+<p>The FinXClient is instantiated as follows:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Instantiate FinXClient</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="kn">import</span> <span class="nn">os</span>
+ <span class="kn">import</span> <span class="nn">finx</span>
+ <span class="kn">from</span> <span class="nn">finx.client</span> <span class="kn">import</span> <span class="n">FinXClient</span>
+ <span class="n">finx_api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">FINX_API_KEY</span><span class="p">]</span>
+ <span class="k">if</span> <span class="n">finx_api_key</span><span class="p">:</span>
+     <span class="n">finx_client</span> <span class="o">=</span> <span class="n">FinXClient</span><span class="p">(</span><span class="s2">&quot;socket&quot;</span><span class="p">,</span><span class="n">ssl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+ <span class="k">else</span><span class="p">:</span>
+     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;set your FINX_API_KEY environment variable like os.environ[FINX_API_KEY] = my_api_key&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The FinXRest client is instantiated as follows:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Instantiate FinXRest</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">finx</span>
+<span class="kn">from</span> <span class="nn">finx.finx_rest</span> <span class="kn">import</span> <span class="n">FinXRest</span>
+<span class="n">finx_api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;FINX_API_KEY&#39;</span><span class="p">]</span>
+<span class="n">finx_rest_client</span> <span class="o">=</span> <span class="n">FinXRest</span><span class="p">(</span><span class="n">finx_api_key</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The FinxClient and FinXRest clients expose several functions:</p>
+<hr class="docutils" />
+<dl class="py function">
+<dt class="sig sig-object py" id="FinXClient.list_api_functions">
+<span class="sig-prename descclassname"><span class="pre">FinXClient.</span></span><span class="sig-name descname"><span class="pre">list_api_functions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#FinXClient.list_api_functions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the list of functions that may be passed into the FinXClient.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>null</strong> – none</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of functions that may be used.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt class="sig sig-object py" id="FinXClient.calculate_greeks">
+<span class="sig-prename descclassname"><span class="pre">FinXClient.</span></span><span class="sig-name descname"><span class="pre">calculate_greeks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">option_side</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">option_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#FinXClient.calculate_greeks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate greeks (quant risk measures) on derivative instruments of any type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s0</strong> (<em>float</em>) – Required</p></li>
+<li><p><strong>k</strong> (<em>float</em>) – Required</p></li>
+<li><p><strong>sigma</strong> (<em>float</em>) – Required</p></li>
+<li><p><strong>q</strong> (<em>float</em>) – Required</p></li>
+<li><p><strong>T</strong> (<em>int</em>) – Required Days to option expiration</p></li>
+<li><p><strong>price</strong> (<em>float</em>) – Price of the option</p></li>
+<li><p><strong>option_side</strong> (<em>str</em>) – Optional “put” or “call”</p></li>
+<li><p><strong>option_type</strong> (<em>str</em>) – Optional “american” or “european” or “perpetual”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of key:value pairs for each Greek measure with keys [vol, price, delta, gamma, theta, vega, vanna, volga, rho]</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt class="sig sig-object py" id="FinXClient.calculate_security_analytics">
+<span class="sig-prename descclassname"><span class="pre">FinXClient.</span></span><span class="sig-name descname"><span class="pre">calculate_security_analytics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">security_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_of_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lognormal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">volatility</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drift_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yield_shift</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shock_in_bp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price_as_yield</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cpr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psa</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#FinXClient.calculate_security_analytics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return dictionary of analytics for the security submitted. If an as_of_date is entered the value is calculated as of that date with data known on that date.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>secruity_id</strong> – Required Any security_identifier of any number of id schemes</p></li>
+<li><p><strong>as_of_date</strong> (<em>str</em>) – Optional A date formatted as “YYYY-mm-dd” (like “2022-07-01”) to use as a historical look-up of reference data.</p></li>
+<li><p><strong>price</strong> (<em>float</em>) – Optional A price to use for the analysis, otherwise one of [par, last best price, observation price] depending on the instrument, date selected, and API Key role</p></li>
+<li><p><strong>lognormal</strong> (<em>binary</em>) – Optional Whether to use “lognormal” or “normal” distribution. Default is True</p></li>
+<li><p><strong>volatility</strong> (<em>float</em>) – Optional The volatility of the instrument</p></li>
+<li><p><strong>drift_a</strong> (<em>float</em>) – Optional  The mean reversion parameter for trinomial tree calculations</p></li>
+<li><p><strong>yield_shift</strong> (<em>float</em>) – Optional The yield shift parameter, i.e. how much the effective duration shifts for v+/v-</p></li>
+<li><p><strong>shock_in_bp</strong> (<em>float</em>) – Optional The basis point shock parameter, i.e. how much all rates used to calibrate eff duration get shocked in valuation</p></li>
+<li><p><strong>price_as_yield</strong> (<em>binary</em>) – Optional whether to use the price field entered as a Yield value. Default is False</p></li>
+<li><p><strong>cpr</strong> (<em>float</em>) – Optional Conditional prepayment rate. If “cpr” is entered then “psa” is ignored.</p></li>
+<li><p><strong>psa</strong> – Optional Payment speed benchmark. If “cpr” is entered then “psa” is ignored.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of dictionaries with cash flow details for each period forecasted.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt class="sig sig-object py" id="FinXClient.calculate_security_key_rates">
+<span class="sig-prename descclassname"><span class="pre">FinXClient.</span></span><span class="sig-name descname"><span class="pre">calculate_security_key_rates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">security_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_of_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lognormal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">volatility</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drift_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yield_shift</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shock_in_bp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price_as_yield</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cpr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psa</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#FinXClient.calculate_security_key_rates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return dictionary of analytics for the security submitted. If an as_of_date is entered the value is calculated as of that date with data known on that date.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>secruity_id</strong> – Required Any security_identifier of any number of id schemes</p></li>
+<li><p><strong>as_of_date</strong> (<em>str</em>) – Optional A date formatted as “YYYY-mm-dd” (like “2022-07-01”) to use as a historical look-up of reference data.</p></li>
+<li><p><strong>price</strong> (<em>float</em>) – Optional A price to use for the analysis, otherwise one of [par, last best price, observation price] depending on the instrument, date selected, and API Key role</p></li>
+<li><p><strong>lognormal</strong> (<em>binary</em>) – Optional Whether to use “lognormal” or “normal” distribution. Default is True</p></li>
+<li><p><strong>volatility</strong> (<em>float</em>) – Optional The volatility of the instrument</p></li>
+<li><p><strong>drift_a</strong> (<em>float</em>) – Optional  The mean reversion parameter for trinomial tree calculations</p></li>
+<li><p><strong>yield_shift</strong> (<em>float</em>) – Optional The yield shift parameter, i.e. how much the effective duration shifts for v+/v-</p></li>
+<li><p><strong>key_rate_times</strong> (<em>str</em>) – Optional Tenor(s) of the interest rate curve for which sensitivity is calculated. For example a list of [‘6mo’, ‘1yr’, ‘2yr’, ‘3yr’,’5yr’,’7yr’,’10yr’]</p></li>
+<li><p><strong>shock_in_bp</strong> (<em>float</em>) – Optional The basis point shock parameter, i.e. how much all rates used to calibrate eff duration get shocked in valuation</p></li>
+<li><p><strong>price_as_yield</strong> (<em>binary</em>) – Optional whether to use the price field entered as a Yield value. Default is False</p></li>
+<li><p><strong>cpr</strong> (<em>float</em>) – Optional Conditional prepayment rate. If “cpr” is entered then “psa” is ignored.</p></li>
+<li><p><strong>psa</strong> – Optional Payment speed benchmark. If “cpr” is entered then “psa” is ignored.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of dictionaries with cash flow details for each period forecasted.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt class="sig sig-object py" id="FinXClient.calibrate_tree">
+<span class="sig-prename descclassname"><span class="pre">FinXClient.</span></span><span class="sig-name descname"><span class="pre">calibrate_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">curve_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">volatility</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drift_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lognormal</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#FinXClient.calibrate_tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a calculated trinomial tree.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>curve_data</strong> (<em>list</em>) – Required A set of curve data in a list of points.</p></li>
+<li><p><strong>volatility</strong> (<em>float</em>) – Optional The volatility of the instrument</p></li>
+<li><p><strong>drift_a</strong> (<em>float</em>) – Optional  The mean reversion parameter for trinomial tree calculations</p></li>
+<li><p><strong>lognormal</strong> (<em>binary</em>) – Optional Whether to use “lognormal” or “normal” distribution. Default is True</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of dictionaries of monte carlo paths.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt class="sig sig-object py" id="FinXClient.generate_monte_carlo_paths">
+<span class="sig-prename descclassname"><span class="pre">FinXClient.</span></span><span class="sig-name descname"><span class="pre">generate_monte_carlo_paths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">curve_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">volatility</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drift_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lognormal</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#FinXClient.generate_monte_carlo_paths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a set of calculated monte carlo paths.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>curve_data</strong> (<em>list</em>) – Required A set of curve data in a list of points.</p></li>
+<li><p><strong>num_paths</strong> (<em>int</em>) – Required Number of simulations paths to run</p></li>
+<li><p><strong>volatility</strong> (<em>float</em>) – Optional The volatility of the instrument</p></li>
+<li><p><strong>drift_a</strong> (<em>float</em>) – Optional  The mean reversion parameter for trinomial tree calculations</p></li>
+<li><p><strong>lognormal</strong> (<em>binary</em>) – Optional Whether to use “lognormal” or “normal” distribution. Default is True</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of dictionaries of monte carlo paths.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt class="sig sig-object py" id="FinXClient.get_curve">
+<span class="sig-prename descclassname"><span class="pre">FinXClient.</span></span><span class="sig-name descname"><span class="pre">get_curve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">curve_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">currency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixing</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tenor</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#FinXClient.get_curve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return reference data, terms and conditions on a security based on its security_id. If an “as_of_date” is entered then the method returns data as it was known on that date. This can be used for retrieving historical data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>curve_name</strong> (<em>str</em>) – Required A curve name in the following list: []</p></li>
+<li><p><strong>currency</strong> (<em>str</em>) – Required Currency such as “USD”, “EUR”, “YEN”</p></li>
+<li><p><strong>start_date</strong> (<em>str</em>) – Required Start date of curve as string in format “YYYY-mm-dd” such as “2022-07-01”</p></li>
+<li><p><strong>end_date</strong> (<em>str</em>) – Optional End date of curve as string in format “YYYY-mm-dd” such as “2022-07-01”</p></li>
+<li><p><strong>country_code</strong> (<em>str</em>) – Optional Country code such as “USA”, “GBR”, “JPN”</p></li>
+<li><p><strong>fixing</strong> (<em>float</em>) – Optional Fixing rate for floating leg index</p></li>
+<li><p><strong>tenor</strong> (<em>float</em>) – Optional Remaining time until maturity in years</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of key:value pairs for the security. Keys will vary based on security_type, but typical keys are [security_name, asset_class, security_type, data_source, country, currency, current_factor, maturity_date, issue_date, current_coupon, etc.]</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt class="sig sig-object py" id="FinXClient.get_security_cash_flows">
+<span class="sig-prename descclassname"><span class="pre">FinXClient.</span></span><span class="sig-name descname"><span class="pre">get_security_cash_flows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">security_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_of_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lognormal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">volatility</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drift_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yield_shift</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price_as_yield</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#FinXClient.get_security_cash_flows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return List of dictionaries of FORECASTED cash flows for periods from the as_of_date forward until maturity date. This method is used for BONDS, STRUCTURED PRODUCTS and other “FIXED INCOME” securities.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>secruity_id</strong> – Required Any security_identifier of any number of id schemes</p></li>
+<li><p><strong>as_of_date</strong> (<em>str</em>) – Optional A date formatted as “YYYY-mm-dd” (like “2022-07-01”) to use as a historical look-up of reference data.</p></li>
+<li><p><strong>price</strong> (<em>float</em>) – Optional A price to use for the analysis, otherwise one of [par, last best price, observation price] depending on the instrument, date selected, and API Key role</p></li>
+<li><p><strong>lognormal</strong> (<em>binary</em>) – Optional Whether to use “lognormal” or “normal” distribution. Default is True</p></li>
+<li><p><strong>volatility</strong> (<em>float</em>) – Optional The volatility of the instrument</p></li>
+<li><p><strong>drift_a</strong> (<em>float</em>) – Optional  The mean reversion parameter for trinomial tree calculations</p></li>
+<li><p><strong>yield_shift</strong> (<em>float</em>) – Optional The yield shift parameter, i.e. how much the effective duration shifts for v+/v-</p></li>
+<li><p><strong>price_as_yield</strong> (<em>binary</em>) – Optional whether to use the price field entered as a Yield value. Default is False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of dictionaries with cash flow details for each period forecasted.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">FinX Docs</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="market_data.html">Market Data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Analytics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_notes.html">Developer Notes - FinX SDK</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="market_data.html" title="previous chapter">Market Data</a></li>
+      <li>Next: <a href="developer_notes.html" title="next chapter">Developer Notes - FinX SDK</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, FinX Capital Markets LLC.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/analytics.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
