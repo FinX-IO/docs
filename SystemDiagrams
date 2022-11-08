@@ -1,0 +1,31 @@
+<mxfile host="app.diagrams.net" modified="2022-11-08T13:58:51.323Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" etag="Qnpnm3xG4hhhAM9yUsxw" version="20.5.1" type="github">
+  <diagram id="JkQp8tl1pc2kmKht9moH" name="Page-1">
+    <mxGraphModel dx="1298" dy="801" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="LSHwEDgDA17LtGLnd7Yk-1" value="PROD Telegram-Bot" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="120" y="120" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="LSHwEDgDA17LtGLnd7Yk-2" value="PROD Mastadon" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="240" y="120" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="LSHwEDgDA17LtGLnd7Yk-3" value="PROD Redis" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="360" y="120" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="LSHwEDgDA17LtGLnd7Yk-4" value="PROD Crypto-Feeds" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="120" y="240" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="LSHwEDgDA17LtGLnd7Yk-5" value="PROD api" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="480" y="120" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="LSHwEDgDA17LtGLnd7Yk-6" value="PROD api" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="490" y="130" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="LSHwEDgDA17LtGLnd7Yk-7" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.load_balancer_generic;pointerEvents=1;" vertex="1" parent="1">
+          <mxGeometry x="511.25" y="80" width="37.5" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
